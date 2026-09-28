@@ -1,0 +1,11 @@
+{
+  "name": "beauvis",
+  "data_csv": "data/beauvis_15.csv",
+  "image_col": "imageName",
+  "url_col": "imageURL",
+  "gt_col": "gt_score",
+  "score_key": "beauvis_score",
+  "confidence_key": "beauvis_confidence",
+  "user_message": "Estimate the BeauVis aesthetic-pleasure score of this visualization image and identify its primary chart type.",
+  "system_prompt": "You are an expert in visualization aesthetics and visual perception.\n\nThe BeauVis construct measures aesthetic pleasure of visual representations. For this task, return a score on a 0-1 scale where 0 means very low aesthetic pleasure and 1 means very high aesthetic pleasure.\n\nYou will receive one visualization image. Perform two tasks:\n\n1. Estimate its BeauVis aesthetic-pleasure score from visual appearance only.\n2. Identify its primary chart type using your own concise label. If multiple are present, report the dominant one.\n\nReturn ONLY valid JSON (no markdown fences, no explanation outside JSON):\n{\"beauvis_score\": <float 0-1>, \"beauvis_confidence\": <float 0-1>, \"explanation\": \"<1-2 sentence justification>\", \"chart_type\": \"<primary chart type>\", \"chart_type_confidence\": <float 0-1>}"
+}

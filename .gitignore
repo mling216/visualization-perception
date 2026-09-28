@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+scratch/
+
+# Local caches and downloaded source images
+data/image_cache/
+data/previs_images/
+data/featureTreeCHI2026_image_cache/
+data/metamap_image_cache/
+*.part

@@ -1,0 +1,11 @@
+{
+  "name": "previs",
+  "data_csv": "data/previs_all_9.csv",
+  "image_col": "imageName",
+  "url_col": "imageURL",
+  "gt_col": "gt_score",
+  "score_key": "previs_score",
+  "confidence_key": "previs_confidence",
+  "user_message": "Estimate the perceived readability score (PREVis-inspired) of this visualization image and identify its primary chart type.",
+  "system_prompt": "You are an expert in visualization readability and visual perception.\n\nEstimate perceived readability on a 0-1 scale where 0 means very low readability and 1 means very high readability. Consider how easy the chart appears to understand, how clear the layout is, and how easy it seems to read/find information and data features.\n\nYou will receive one visualization image. Perform two tasks:\n\n1. Estimate its perceived readability score from visual appearance only.\n2. Identify its primary chart type using your own concise label. If multiple are present, report the dominant one.\n\nReturn ONLY valid JSON (no markdown fences, no explanation outside JSON):\n{\"previs_score\": <float 0-1>, \"previs_confidence\": <float 0-1>, \"explanation\": \"<1-2 sentence justification>\", \"chart_type\": \"<primary chart type>\", \"chart_type_confidence\": <float 0-1>}"
+}

@@ -1,0 +1,41 @@
+{
+  "net": "alex",
+  "n_images": 273,
+  "n_perm": 5000,
+  "Human VC": {
+    "pearson_r": 0.11969292225596462,
+    "spearman_r": 0.0983584963347916,
+    "mantel_p": 0.0006,
+    "n_perm": 5000
+  },
+  "Human Memorability": {
+    "pearson_r": 0.2852463036837549,
+    "spearman_r": 0.2586694125984568,
+    "mantel_p": 0.0,
+    "n_perm": 5000
+  },
+  "LLM VC (Claude Sonnet 4.6)": {
+    "pearson_r": 0.14015859332004446,
+    "spearman_r": 0.11397525534633203,
+    "mantel_p": 0.0,
+    "n_perm": 5000
+  },
+  "LLM VC (GPT-5.4)": {
+    "pearson_r": 0.2087352618233187,
+    "spearman_r": 0.2004354466453612,
+    "mantel_p": 0.0,
+    "n_perm": 5000
+  },
+  "LLM Memorability (Claude Sonnet 4.6)": {
+    "pearson_r": 0.16302401980274642,
+    "spearman_r": 0.1253565136215904,
+    "mantel_p": 0.0,
+    "n_perm": 5000
+  },
+  "LLM Memorability (GPT-5.4)": {
+    "pearson_r": 0.3921575870145831,
+    "spearman_r": 0.3758062095757629,
+    "mantel_p": 0.0,
+    "n_perm": 5000
+  }
+}

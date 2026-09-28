@@ -1,0 +1,11 @@
+{
+  "name": "memorability270",
+  "data_csv": "data/memorability_270.csv",
+  "image_col": "imageName",
+  "url_col": "imageURL",
+  "gt_col": "gt_score",
+  "score_key": "memorability_score",
+  "confidence_key": "memorability_confidence",
+  "user_message": "Estimate the memorability score of this visualization image and identify its primary chart type.",
+  "system_prompt": "You are an expert in visual perception and data visualization.\n\n**Image Memorability** is the likelihood of an image being later remembered or recognized. It is scored on a 0–1 scale where 0 = very low memorability (the image is rapidly forgotten) and 1 = very high memorability (the image is strongly retained in memory after a single viewing).\n\nYou will receive a single visualization image. Perform two tasks:\n\n1. Score its memorability purely from what you see.\n2. Identify the primary chart type of the image using your own knowledge. Do not choose from a predefined list \u2014 use the most accurate concise label you think best describes the primary visualization type. If multiple types are present, report the dominant one.\n\nReturn ONLY valid JSON (no markdown fences, no explanation outside JSON):\n{\"memorability_score\": <float 0-1>, \"memorability_confidence\": <float 0-1>, \"explanation\": \"<1-2 sentence justification>\", \"chart_type\": \"<primary chart type>\", \"chart_type_confidence\": <float 0-1>}"
+}

@@ -1,0 +1,17 @@
+perception,model,estimate,unique_scores,largest_score_band_fraction
+vc,GPT-5.4,run_1,26,0.16483516483516483
+vc,GPT-5.4,run_2,30,0.17216117216117216
+vc,GPT-5.4,run_3,31,0.1794871794871795
+vc,GPT-5.4,mean_score,91,0.12454212454212454
+vc,Claude Sonnet 4.6,run_1,20,0.1684981684981685
+vc,Claude Sonnet 4.6,run_2,20,0.15384615384615385
+vc,Claude Sonnet 4.6,run_3,20,0.16117216117216118
+vc,Claude Sonnet 4.6,mean_score,55,0.14285714285714285
+memorability,GPT-5.4,run_1,20,0.20146520146520147
+memorability,GPT-5.4,run_2,20,0.22344322344322345
+memorability,GPT-5.4,run_3,19,0.22344322344322345
+memorability,GPT-5.4,mean_score,65,0.15018315018315018
+memorability,Claude Sonnet 4.6,run_1,10,0.31868131868131866
+memorability,Claude Sonnet 4.6,run_2,11,0.32234432234432236
+memorability,Claude Sonnet 4.6,run_3,11,0.32234432234432236
+memorability,Claude Sonnet 4.6,mean_score,31,0.2893772893772894

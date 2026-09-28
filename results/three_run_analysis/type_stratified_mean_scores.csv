@@ -1,0 +1,17 @@
+perception,model,group,n,spearman_rho
+vc,GPT-5.4,Area,64,0.801745810620641
+vc,GPT-5.4,Bar,93,0.7544851529702069
+vc,GPT-5.4,Line,59,0.8521475201297627
+vc,GPT-5.4,Point,31,0.6575725150706423
+vc,Claude Sonnet 4.6,Area,64,0.8214570073969165
+vc,Claude Sonnet 4.6,Bar,93,0.7703761008929926
+vc,Claude Sonnet 4.6,Line,59,0.8937408604546592
+vc,Claude Sonnet 4.6,Point,31,0.7045777208237706
+memorability,GPT-5.4,Area,64,0.6685718624047791
+memorability,GPT-5.4,Bar,93,0.6033010967735479
+memorability,GPT-5.4,Line,59,0.5003117114995053
+memorability,GPT-5.4,Point,31,0.4059381927968188
+memorability,Claude Sonnet 4.6,Area,64,0.7113805066260153
+memorability,Claude Sonnet 4.6,Bar,93,0.5607349789632791
+memorability,Claude Sonnet 4.6,Line,59,0.6592319731798538
+memorability,Claude Sonnet 4.6,Point,31,0.36032906219570954

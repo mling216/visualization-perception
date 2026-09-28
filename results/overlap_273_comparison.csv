@@ -1,0 +1,17 @@
+perception,model,n,pearson_r,pearson_ci_lo,pearson_ci_hi,spearman_r,spearman_ci_lo,spearman_ci_hi
+VC,Claude Sonnet 4.6,273,0.803,0.761,0.84,0.809,0.755,0.852
+VC,GPT-5.4,273,0.82,0.779,0.855,0.799,0.744,0.843
+VC,VGG19 + Ridge,273,0.637,0.562,0.703,0.635,0.554,0.706
+VC,VGG19 + 5-NN,273,0.618,0.522,0.699,0.606,0.512,0.684
+VC,VGG19 + GradBoost,273,0.661,0.588,0.724,0.65,0.57,0.717
+VC,LPIPS + Ridge,273,0.718,0.652,0.775,0.694,0.617,0.757
+VC,LPIPS + 5-NN,273,0.658,0.577,0.729,0.624,0.539,0.699
+VC,LPIPS + GradBoost,273,0.703,0.633,0.761,0.666,0.588,0.73
+Memorability,Claude Sonnet 4.6,273,0.568,0.466,0.653,0.635,0.549,0.709
+Memorability,GPT-5.4,273,0.632,0.549,0.699,0.62,0.529,0.696
+Memorability,VGG19 + Ridge,273,0.586,0.504,0.666,0.629,0.542,0.706
+Memorability,VGG19 + 5-NN,273,0.537,0.44,0.629,0.539,0.442,0.625
+Memorability,VGG19 + GradBoost,273,0.572,0.491,0.652,0.631,0.55,0.701
+Memorability,LPIPS + Ridge,273,0.618,0.545,0.693,0.652,0.569,0.719
+Memorability,LPIPS + 5-NN,273,0.552,0.474,0.629,0.597,0.512,0.666
+Memorability,LPIPS + GradBoost,273,0.618,0.545,0.687,0.647,0.562,0.715

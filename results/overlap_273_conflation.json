@@ -1,0 +1,20 @@
+{
+  "Claude Sonnet 4.6": {
+    "pearson_r": 0.489,
+    "pearson_ci": [
+      0.404,
+      0.566
+    ],
+    "spearman_r": 0.49,
+    "n": 273
+  },
+  "GPT-5.4": {
+    "pearson_r": 0.528,
+    "pearson_ci": [
+      0.429,
+      0.615
+    ],
+    "spearman_r": 0.445,
+    "n": 273
+  }
+}
