@@ -1,4 +1,10 @@
-"""Analyze three repeated LLM runs on the 273-image VC/memorability overlap."""
+"""Main LLM analysis on the 273 shared images (complexity and memorability).
+
+Computes three-run-mean correlations with bootstrap intervals, run-to-run
+reliability, score banding, paired GPT-Claude and LLM-baseline differences,
+per-chart-type Spearman correlations, and the complexity-memorability
+correlation for humans and each LLM. Outputs go to results/three_run_analysis/.
+"""
 
 import json
 from pathlib import Path
@@ -351,7 +357,7 @@ def main() -> None:
     with open(output_dir / "report.json", "w", encoding="utf-8") as handle:
         json.dump(report, handle, indent=2)
 
-    print(f"Wrote multi-round analysis to {output_dir}")
+    print(f"Wrote multi-run analysis to {output_dir.relative_to(REPO_ROOT)}")
     print(pd.DataFrame(correlation_rows).to_string(index=False, float_format=lambda value: f"{value:.3f}"))
     print("\nReliability summary")
     print(pd.DataFrame(reliability_summary).to_string(index=False, float_format=lambda value: f"{value:.3f}"))

@@ -1,4 +1,9 @@
-"""Generate the prediction scatter plot from three-run LLM mean predictions."""
+"""Scatter plots of LLM scores against human scores.
+
+Writes figures/prediction_scatter_main.* (complexity and memorability,
+three-run means) and figures/prediction_scatter_exploratory.* (aesthetic
+pleasure and readability, single run).
+"""
 
 from pathlib import Path
 
@@ -12,11 +17,13 @@ ROOT = Path(__file__).parent.parent
 FIGURES = ROOT / "figures"
 ANALYSIS = ROOT / "results" / "three_run_analysis"
 
-PANELS = [
+MAIN_PANELS = [
     ("Visual complexity", "GPT-5.4", "vc", "gpt-5.4", "vc_270.csv", True),
     ("Visual complexity", "Claude Sonnet 4.6", "vc", "claude-sonnet-4-6", "vc_270.csv", True),
     ("Memorability", "GPT-5.4", "memorability", "gpt-5.4", "memorability_270.csv", True),
     ("Memorability", "Claude Sonnet 4.6", "memorability", "claude-sonnet-4-6", "memorability_270.csv", True),
+]
+EXPLORATORY_PANELS = [
     ("Aesthetic pleasure", "GPT-5.4", "beauvis", "gpt-5.4", "beauvis_15.csv", False),
     ("Aesthetic pleasure", "Claude Sonnet 4.6", "beauvis", "claude-sonnet-4-6", "beauvis_15.csv", False),
     ("Readability", "GPT-5.4", "previs", "gpt-5.4", "previs_all_9.csv", False),
@@ -34,12 +41,10 @@ def load_panel(perception: str, model_tag: str, data_name: str) -> pd.DataFrame:
     return target[["imageName", "gt_score"]].merge(frame[["imageName", "score"]], on="imageName", validate="one_to_one")
 
 
-def main() -> None:
-    correlation = pd.read_csv(ANALYSIS / "correlations.csv")
-    mean_rows = correlation[correlation["estimate"] == "three_run_mean"].set_index(["perception", "model"])
-
-    fig, axes = plt.subplots(4, 2, figsize=(7.0, 11.5), sharex=False, sharey=True)
-    for axis, (construct, model, perception, model_tag, data_name, has_bootstrap) in zip(axes.ravel(), PANELS):
+def render(panels: list, mean_rows: pd.DataFrame, stem: str) -> None:
+    n_rows = len(panels) // 2
+    fig, axes = plt.subplots(n_rows, 2, figsize=(7.0, 3.0 * n_rows), sharex=False, sharey=True, squeeze=False)
+    for index, (axis, (construct, model, perception, model_tag, data_name, has_bootstrap)) in enumerate(zip(axes.ravel(), panels)):
         frame = load_panel(perception, model_tag, data_name)
         x = frame["gt_score"].to_numpy(float)
         y = frame["score"].to_numpy(float)
@@ -86,24 +91,24 @@ def main() -> None:
         axis.set_ylim(0, 1)
         axis.tick_params(labelsize=9.5)
         axis.grid(True, color="0.9", linewidth=0.7)
+        x_label = "Human memorability (original scale)" if perception == "memorability" else "Normalized human score"
+        axis.set_xlabel(x_label, fontsize=10.5, labelpad=4)
+        if index % 2 == 0:
+            axis.set_ylabel("Three-run mean LLM score" if has_bootstrap else "LLM score", fontsize=10.5, labelpad=5)
 
-    for axis in axes[1, :]:
-        axis.set_xlabel("Human memorability (original scale)", fontsize=10.5, labelpad=4)
-    for axis in axes[-1, :]:
-        axis.set_xlabel("Normalized human score", fontsize=10.5, labelpad=4)
-    for row, axis in enumerate(axes[:, 0]):
-        axis.set_ylabel("Three-run mean LLM score" if row < 2 else "LLM score", fontsize=10.5, labelpad=5)
     fig.tight_layout(pad=1.0)
-    row_shifts = {1: 0.015, 2: 0.015, 3: 0.03}
-    for row, shift in row_shifts.items():
-        for axis in axes[row, :]:
-            position = axis.get_position()
-            axis.set_position([position.x0, position.y0 + shift, position.width, position.height])
     FIGURES.mkdir(parents=True, exist_ok=True)
-    fig.savefig(FIGURES / "prediction_scatter_grid.png", dpi=300, bbox_inches="tight")
-    fig.savefig(FIGURES / "prediction_scatter_grid.pdf", bbox_inches="tight")
+    fig.savefig(FIGURES / f"{stem}.png", dpi=300, bbox_inches="tight")
+    fig.savefig(FIGURES / f"{stem}.pdf", bbox_inches="tight")
     plt.close(fig)
-    print(f"Wrote {FIGURES / 'prediction_scatter_grid.pdf'}")
+    print(f"Wrote {FIGURES / (stem + '.pdf')}")
+
+
+def main() -> None:
+    correlation = pd.read_csv(ANALYSIS / "correlations.csv")
+    mean_rows = correlation[correlation["estimate"] == "three_run_mean"].set_index(["perception", "model"])
+    render(MAIN_PANELS, mean_rows, "prediction_scatter_main")
+    render(EXPLORATORY_PANELS, mean_rows, "prediction_scatter_exploratory")
 
 
 if __name__ == "__main__":

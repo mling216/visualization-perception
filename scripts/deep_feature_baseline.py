@@ -1,16 +1,15 @@
 """
-Deep-feature baseline for perceptual-attribute prediction.
+Deep-feature baselines for perceived-attribute prediction.
 
-Extracts frozen CNN embeddings from visualization images and predicts human
-perceptual scores (memorability, visual complexity, etc.) using Ridge regression
-and k-NN.  Intended as a non-LLM baseline that can be compared with the
-zero-shot LLM scores produced by score_perception.py.
+Extracts frozen VGG19 features (late-layer or LPIPS-style multi-layer) from
+each image and maps them to human scores with Ridge, 5-NN, and gradient
+boosting under 5-fold cross-validation. The paper reports the Ridge results.
 
-Usage:
-    python scripts/deep_feature_baseline.py --perception memorability
-    python scripts/deep_feature_baseline.py --perception vc --extractor clip
-    python scripts/deep_feature_baseline.py --perception vc --extractor lpips
-    python scripts/deep_feature_baseline.py --perception memorability --kfold 5 --seed 42
+Usage (the paper's runs):
+    python scripts/deep_feature_baseline.py --perception vc270 --extractor vgg
+    python scripts/deep_feature_baseline.py --perception vc270 --extractor lpips
+    python scripts/deep_feature_baseline.py --perception memorability270 --extractor vgg
+    python scripts/deep_feature_baseline.py --perception memorability270 --extractor lpips
 
 Outputs:
     results/<perception>/deep_feature_baseline_<extractor>.csv
@@ -171,7 +170,7 @@ class LPIPSExtractor:
         return np.vstack(embeddings)
 
 
-class CLIExtractor:
+class CLIPExtractor:
     def __init__(self, device: torch.device, model_name: str = "ViT-B-32", pretrained: str = "openai"):
         self.device = device
         try:
@@ -203,7 +202,7 @@ def build_extractor(name: str, device: torch.device):
     if name == "lpips":
         return LPIPSExtractor(device)
     if name in {"clip", "open_clip"}:
-        return CLIExtractor(device)
+        return CLIPExtractor(device)
     raise ValueError(f"Unknown extractor: {name}")
 
 
@@ -271,7 +270,7 @@ def cross_val_predict_gb(X: np.ndarray, y: np.ndarray, n_splits: int, seed: int)
 
 def main():
     parser = argparse.ArgumentParser(description="Deep-feature baseline for perceptual attributes")
-    parser.add_argument("--perception", required=True, help="Perception config key (e.g., memorability, vc)")
+    parser.add_argument("--perception", required=True, help="Perception config key (e.g., memorability270, vc270)")
     parser.add_argument("--extractor", default="vgg", choices=["vgg", "lpips", "clip"], help="Feature extractor")
     parser.add_argument("--kfold", type=int, default=5, help="Number of CV folds")
     parser.add_argument("--knn-k", type=int, default=5, help="k for k-NN")

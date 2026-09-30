@@ -1,0 +1,15 @@
+﻿{
+    "memorability_270":  {
+                             "n":  273,
+                             "pearson_r":  -0.082,
+                             "pearson_ci":  [
+                                                -0.212,
+                                                0.049
+                                            ],
+                             "spearman_r":  -0.067,
+                             "spearman_ci":  [
+                                                 -0.182,
+                                                 0.054
+                                             ]
+                         }
+}

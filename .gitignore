@@ -6,6 +6,7 @@ __pycache__/
 scratch/
 
 # Local caches and downloaded source images
+_external/
 data/image_cache/
 data/previs_images/
 data/featureTreeCHI2026_image_cache/

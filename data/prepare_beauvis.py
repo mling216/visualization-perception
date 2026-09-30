@@ -79,7 +79,7 @@ def main() -> None:
         rows.append(
             {
                 "imageName": image_name,
-                "imageURL": image_path.resolve().as_uri(),
+                "imageURL": image_path.resolve().relative_to(REPO_ROOT).as_posix(),
                 "gt_score_raw": gt_raw,
                 "n_participants": int(len(item_df)),
             }

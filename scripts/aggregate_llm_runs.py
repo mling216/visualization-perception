@@ -1,7 +1,11 @@
-"""Aggregate three repeated LLM scoring runs by image.
+"""Average three repeated LLM scoring runs per image.
 
-Run 1 is the existing canonical score file. Runs 2 and 3 are created with
+Run 1 is the original score file (results/vc/ for complexity,
+results/memorability270/ for memorability). Runs 2 and 3 come from
 score_perception.py --run-id 2 and --run-id 3.
+
+Usage:
+    python scripts/aggregate_llm_runs.py --perception vc --model-tag gpt-5.4 --data-csv data/vc_270.csv
 """
 
 import argparse

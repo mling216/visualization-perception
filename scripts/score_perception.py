@@ -1,18 +1,18 @@
 """
-LLM Perception Evaluator
-========================
-Zero-shot scoring of visualization images for human perceptual properties
-using Claude (Anthropic) or GPT (OpenAI).
+Zero-shot LLM scoring of visualization images.
+
+Each call sends one image plus the prompt from config/<perception>.json to
+Claude or GPT and stores the returned score, confidence, and explanation.
 
 Usage:
-    python scripts/score_perception.py --perception memorability --provider claude
     python scripts/score_perception.py --perception vc --provider gpt
-    python scripts/score_perception.py --perception memorability --provider claude --model claude-sonnet-4-6 --concurrency 5
-    python scripts/score_perception.py --perception vc --provider gpt --model gpt-5.4 --limit 20
+    python scripts/score_perception.py --perception memorability270 --provider claude
+    python scripts/score_perception.py --perception vc --provider gpt --run-id 2
+    python scripts/score_perception.py --perception vc --provider gpt --limit 20
 
 Outputs to:  results/<perception>/<perception>_<model>_scores.csv
 Repeated runs use: results/<perception>/runs/<perception>_<model>_run<N>_scores.csv
-Resume-safe: already-scored images are skipped unless --overwrite is passed.
+Already-scored images are skipped unless --overwrite is passed.
 """
 
 import os, sys, json, time, argparse, base64, csv, asyncio, threading
@@ -118,8 +118,12 @@ def detect_media_type(data: bytes) -> str:
 def load_image_base64(img_name: str, url: str) -> tuple[str, str] | tuple[None, None]:
     import urllib.request
     try:
-        with urllib.request.urlopen(url, timeout=30) as resp:
-            data = resp.read()
+        if url.startswith(('http://', 'https://', 'file:')):
+            with urllib.request.urlopen(url, timeout=30) as resp:
+                data = resp.read()
+        else:
+            # BeauVis/PREVis rows store paths relative to the repo root
+            data = (SCRIPT_DIR.parent / url).read_bytes()
         data = resize_if_needed(data)
         return base64.standard_b64encode(data).decode('utf-8'), detect_media_type(data)
     except Exception as e:
@@ -335,7 +339,6 @@ def main():
         data_csv = SCRIPT_DIR.parent / data_csv
     if not data_csv.exists():
         print(f'ERROR: data CSV not found: {data_csv}')
-        print('  Run  python data/prepare_data.py  first.')
         sys.exit(1)
     df = pd.read_csv(data_csv)
     df = df.rename(columns={

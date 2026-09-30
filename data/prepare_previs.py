@@ -12,6 +12,7 @@ Required sources:
 Outputs:
     data/previs_validation_3.csv
     data/previs_development_6.csv
+    data/previs_all_9.csv
     data/previs_images/validation/*.png
     data/previs_images/development/*.png
 
@@ -155,7 +156,7 @@ def build_dataset(ratings_df: pd.DataFrame, pdf_map: dict, out_img_dir: Path, da
         rows.append(
             {
                 "imageName": png_name,
-                "imageURL": png_path.resolve().as_uri(),
+                "imageURL": png_path.resolve().relative_to(REPO_ROOT).as_posix(),
                 "stimulus": stim,
                 "gt_score_raw": float(r["gt_score_raw"]),
                 "gt_score": float(r["gt_score"]),
